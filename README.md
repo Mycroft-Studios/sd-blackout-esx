@@ -2,29 +2,24 @@
 
 You plant a bomb, there's some nice explosions and the lights go off! Heavy inspiration taken from NoPixel obviously ;)
 
-
 - [Preview](https://www.youtube.com/watch?v=6Y03cKkwOfk&t=6s)
 
-Thanks for showing your personal interest in my work! 
+Thanks for showing your personal interest in my work!
 Please consider supporting ❤
 
-🔗 > https://discord.gg/Tu94MCDDEa
-🔗 > https://samuels-development.tebex.io/
+🔗 > <https://discord.gg/Tu94MCDDEa>
+🔗 > <https://samuels-development.tebex.io/>
 
-# Installation
+Converted to ESX with Love from Mycroft (Director Of ESX) ❤
 
-Add this item to your qb-core/shared/items.lua
-```
-['c4_bomb'] = {['name'] = 'c4_bomb', ['label'] = 'C4 Explosive', ['weight'] = 1000, ['type'] = 'item', ['ammotype'] = nil,['image'] = 'weapon_stickybomb.png', 	['unique'] = true, 		['useable'] = false, 	['description'] = 'A high-yield, timed explosive charge..'},
-```
-Then you're done and good to go! 
+## Installation
 
-# Dependencies
+- Import `items.sql` to your database
 
-qb-core
-qb-target 
+Then you're done and good to go!
 
-(Since a lot of the code is standalone, all you realistically need is the target and qb-weathersync)
+## Dependencies
 
-
-
+[ESX legacy](https://github.com/esx-framework/esx-legacy)
+[qtarget](https://github.com/overextended/qtarget)
+[mythic_progbar](https://github.com/HalCroves/mythic_progbar)

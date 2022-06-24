@@ -1,9 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-
 local Cooldown = false
-
-players = {}
-entities = {}
 
 -- Syncing Server Side Events
 
@@ -19,6 +14,13 @@ RegisterNetEvent('sd-blackout:server:lightsoff', function()
     TriggerClientEvent('sd-blackout:client:lightsoff', -1)
 end)
 
+RegisterNetEvent('sd-blackout:Server:RemoveC4', function()
+    local source = source
+    local xPlayer = ESX.GetPlayerFromId(source)
+    xPlayer.removeInventoryItem("c4_bomb", 1)
+end)
+
+
 RegisterNetEvent('sd-blackout:server:lightson', function()
     TriggerClientEvent('sd-blackout:client:lightson', -1)
 end)
@@ -27,24 +29,22 @@ end)
 -- Starting Cooldown
 
 RegisterServerEvent('sd-blackout:server:startr', function()
-    local src = source
-	local Player = QBCore.Functions.GetPlayer(src)
-
-        TriggerEvent('sd-blackout:server:coolout')
-	end)
+    TriggerEvent('sd-blackout:server:coolout')
+end)
 
 -- Minimum Cop Callback
 
-QBCore.Functions.CreateCallback('sd-blackout:server:getCops', function(source, cb)
-    local amount = 0
-    local players = QBCore.Functions.GetQBPlayers()
-    for _, Player in pairs(players) do
-        if Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty then
-            amount = amount + 1
-        end
-    end
-    cb(amount)
+ESX.RegisterServerCallback('sd-blackout:server:getCops', function(source, cb)
+    local players = ESX.GetExtendedPlayers("job", "police")
+    cb(ESX.Table.SizeOf(players))
 end)
+
+ESX.RegisterServerCallback('sd-blackout:server:HasItem', function(source, cb, item)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local item = xPlayer.getInventoryItem(item)
+    cb(item.count > 0)
+end)
+
 
 -- Cooldown
 
@@ -60,7 +60,7 @@ RegisterServerEvent('sd-blackout:server:coolout', function()
     end
 end)
 
-QBCore.Functions.CreateCallback("sd-blackout:server:coolc",function(source, cb)
+ESX.RegisterServerCallback("sd-blackout:server:coolc",function(source, cb)
     if Cooldown then
         cb(true)
     else
